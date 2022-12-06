@@ -6,6 +6,7 @@
   "extends": [
     "plugin:react/recommended",
     "standard-with-typescript",
+    "prettier",
     "plugin:react/jsx-runtime"
   ],
   "overrides": [],
@@ -17,9 +18,13 @@
     ]
   },
   "plugins": [
-    "react"
+    "react",
+    "prettier"
   ],
   "rules": {
+    "prettier/prettier": [
+      "error"
+    ],
     "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/consistent-type-definitions": [
       "error",
