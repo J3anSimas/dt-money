@@ -1,4 +1,4 @@
-import { useTransactions } from '../contexts/transactions.context'
+import { useTransactions } from './useTransactions'
 
 type TSummary = {
   income: number

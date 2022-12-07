@@ -11,13 +11,19 @@ export const SummaryContainer = styled.section`
   gap: 2rem;
 
   margin-top: -5rem;
+
+  & .loading-container {
+    background: ${(props) => props.theme['gray-600']};
+    height: 150.4px;
+    border-radius: 6px;
+  }
 `
 type TSummaryCardProps = {
   variant?: 'green'
 }
 
 export const SummaryCard = styled.div<TSummaryCardProps>`
-  background: ${props => props.theme['gray-600']};
+  background: ${(props) => props.theme['gray-600']};
   border-radius: 6px;
 
   padding: 2rem;
@@ -26,8 +32,7 @@ export const SummaryCard = styled.div<TSummaryCardProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: ${props => props.theme['gray-300']};
-
+    color: ${(props) => props.theme['gray-300']};
   }
   strong {
     display: block;
@@ -35,7 +40,9 @@ export const SummaryCard = styled.div<TSummaryCardProps>`
     font-size: 2rem;
   }
 
-  ${props => props.variant === 'green' && css`
-    background: ${props.theme['green-700']};
-  `}
+  ${(props) =>
+    props.variant === 'green' &&
+    css`
+      background: ${props.theme['green-700']};
+    `}
 `

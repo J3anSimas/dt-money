@@ -1,15 +1,20 @@
 import styled from 'styled-components'
 
-export const TransactionsContainer = styled.div``
+export const TransactionsContainer = styled.div`
+  min-height: 100vh;
+  max-height: 100vh;
+`
 
 export const TransactionsTableContainer = styled.main`
   width: 100%;
+
   max-width: 1120px;
   margin: 4rem auto 0;
   padding: 0 1.5rem;
 `
 export const TransactionsTable = styled.table`
   width: 100%;
+  height: 100%;
   border-collapse: separate;
   border-spacing: 0 0.5rem;
   margin-top: 1.5rem;
@@ -27,6 +32,10 @@ export const TransactionsTable = styled.table`
       border-top-right-radius: 6px;
       border-bottom-right-radius: 6px;
     }
+  }
+
+  & .loading-container {
+    height: 10rem;
   }
 `
 type PriceHightlightProps = {

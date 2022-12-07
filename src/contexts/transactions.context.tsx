@@ -1,10 +1,5 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
+import { api } from '../lib/axios'
 
 type TTransaction = {
   id: number
@@ -15,11 +10,13 @@ type TTransaction = {
   createdAt: Date
 }
 
-type TTransactionsContext = {
+export type TTransactionsContext = {
   transactions: TTransaction[]
+  fetchTransactions: (query?: string) => Promise<void>
+  isLoading: boolean
 }
 
-const TransactionsContext = createContext({} as TTransactionsContext)
+export const TransactionsContext = createContext({} as TTransactionsContext)
 
 export default function TransactionsProvider({
   children
@@ -27,22 +24,28 @@ export default function TransactionsProvider({
   children: ReactNode
 }): JSX.Element {
   const [transactions, setTransactions] = useState<TTransaction[]>([])
-  async function getDataFromApi(): Promise<void> {
-    const response = await fetch('http://localhost:3000/transactions')
-    const data = await response.json()
-    setTransactions(data)
+  const [isLoading, setIsLoading] = useState(false)
+  async function fetchTransactions(query?: string): Promise<void> {
+    setIsLoading(true)
+    const response = await api.get('/transactions', {
+      params: {
+        _sort: 'createdAt',
+        _order: 'desc',
+        q: query
+      }
+    })
+
+    setTransactions(response.data)
+    setIsLoading(false)
   }
   useEffect(() => {
-    void getDataFromApi()
+    void fetchTransactions()
   }, [])
   return (
-    <TransactionsContext.Provider value={{ transactions }}>
+    <TransactionsContext.Provider
+      value={{ transactions, fetchTransactions, isLoading }}
+    >
       {children}
     </TransactionsContext.Provider>
   )
-}
-
-export function useTransactions(): TTransactionsContext {
-  const transactions = useContext(TransactionsContext)
-  return transactions
 }

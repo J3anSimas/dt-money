@@ -15,6 +15,38 @@
       "category": "Alimentação",
       "price": 20,
       "createdAt": "2022-12-03T20:20:52.980Z"
+    },
+    {
+      "description": "Desenvolvimento de App",
+      "price": 4000,
+      "category": "Venda",
+      "type": "income",
+      "createdAt": "2022-12-07T19:39:53.747Z",
+      "id": 3
+    },
+    {
+      "description": "Presente de aniversário",
+      "price": 30,
+      "category": "Compra",
+      "type": "outcome",
+      "createdAt": "2022-12-07T19:49:46.910Z",
+      "id": 4
+    },
+    {
+      "description": "Salário",
+      "price": 2000,
+      "category": "Salário",
+      "type": "income",
+      "createdAt": "2022-12-07T19:51:16.188Z",
+      "id": 5
+    },
+    {
+      "description": "Lanche",
+      "price": 80,
+      "category": "Alimentação",
+      "type": "outcome",
+      "createdAt": "2022-12-07T21:04:01.638Z",
+      "id": 6
     }
   ]
 }

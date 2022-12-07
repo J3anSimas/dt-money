@@ -1,18 +1,32 @@
 import { MagnifyingGlass } from 'phosphor-react'
-import { useState } from 'react'
+import React from 'react'
 import { SearchFormContainer } from './search-form.styles'
 
-export default function SearchForm(): JSX.Element {
-  const [filter, setFilter] = useState('')
-
-  function handleSearchTransition(): void {}
+type TSearchFormProps = {
+  query: string
+  onChangingQuery: (value: string) => void
+  onSubmitQuery: () => Promise<void>
+}
+export default function SearchForm({
+  onChangingQuery,
+  query,
+  onSubmitQuery
+}: TSearchFormProps): JSX.Element {
+  async function handleSearchTransition(
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
+    e.preventDefault()
+    await onSubmitQuery()
+  }
   return (
-    <SearchFormContainer onSubmit={handleSearchTransition}>
+    <SearchFormContainer
+      onSubmit={async (e) => await handleSearchTransition(e)}
+    >
       <input
         type="text"
         placeholder="Busque por transações"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
+        value={query}
+        onChange={(e) => onChangingQuery(e.target.value)}
       />
       <button type="submit">
         <MagnifyingGlass size={20} />
