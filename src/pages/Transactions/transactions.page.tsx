@@ -11,10 +11,10 @@ import {
   TransactionsTable,
   TransactionsTableContainer
 } from './transactions.styles'
-import { api } from '../../lib/axios'
 import { useState } from 'react'
+import { getTransactionData } from '../../api/getTransactions'
 
-type TTransaction = {
+export type TTransaction = {
   id: number
   description: string
   type: 'income' | 'outcome'
@@ -27,14 +27,7 @@ export default function Transactions(): JSX.Element {
   const { data, isFetching, refetch } = useQuery<TTransaction[]>(
     'transactions',
     async () => {
-      const response = await api.get('/transactions', {
-        params: {
-          _sort: 'createdAt',
-          _order: 'desc',
-          q: query
-        }
-      })
-      return response.data
+      return await getTransactionData(query)
     }
   )
 

@@ -1,14 +1,12 @@
-import { useTransactions } from './useTransactions'
+import { TTransaction } from '../pages/Transactions/transactions.page'
 
-type TSummary = {
+export type TSummary = {
   income: number
   outcome: number
   total: number
 }
-export function useSummary(): TSummary {
-  const { transactions } = useTransactions()
-
-  const summary = transactions.reduce(
+export function useSummary(data: TTransaction[]): TSummary {
+  const summary = data.reduce(
     (acc, transaction) => {
       if (transaction.type === 'income') {
         acc.income += transaction.price

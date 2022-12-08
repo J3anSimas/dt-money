@@ -1,17 +1,25 @@
 import { SummaryCard, SummaryContainer } from './summary.styles'
 import { ArrowCircleUp, ArrowCircleDown, CurrencyDollar } from 'phosphor-react'
 import { priceFormatter } from '../../utils/formatter'
-import { useSummary } from '../../hooks/useSummary'
+import { TSummary, useSummary } from '../../hooks/useSummary'
 import Loading from '../Loading/loading.component'
-import { useTransactions } from '../../hooks/useTransactions'
+import { getTransactionData } from '../../api/getTransactions'
+import { useQuery } from 'react-query'
+import { useEffect, useState } from 'react'
 
 export default function Summary(): JSX.Element {
-  const { isLoading } = useTransactions()
-  const summary = useSummary()
+  const { data, isFetching } = useQuery(
+    'transactions',
+    async () => await getTransactionData()
+  )
+  const [summary, setSummary] = useState<TSummary>()
+  useEffect(() => {
+    if (data != null) setSummary(useSummary(data))
+  }, [data])
 
   return (
     <SummaryContainer>
-      {isLoading ? (
+      {isFetching ? (
         <>
           <Loading />
           <Loading />
@@ -24,10 +32,12 @@ export default function Summary(): JSX.Element {
               <span>Entradas</span>
               <ArrowCircleUp size={32} color="#00b37e" />
             </header>
-            {isLoading ? (
+            {isFetching ? (
               <Loading />
             ) : (
-              <strong>{priceFormatter.format(summary.income)}</strong>
+              <strong>
+                {summary !== undefined && priceFormatter.format(summary.income)}
+              </strong>
             )}
           </SummaryCard>
           <SummaryCard>
@@ -36,7 +46,9 @@ export default function Summary(): JSX.Element {
               <ArrowCircleDown size={32} color="#f75a68" />
             </header>
 
-            <strong>{priceFormatter.format(summary.outcome)}</strong>
+            <strong>
+              {summary !== undefined && priceFormatter.format(summary.outcome)}
+            </strong>
           </SummaryCard>
           <SummaryCard variant="green">
             <header>
@@ -44,7 +56,9 @@ export default function Summary(): JSX.Element {
               <CurrencyDollar size={32} color="#fff" />
             </header>
 
-            <strong>{priceFormatter.format(summary.total)}</strong>
+            <strong>
+              {summary !== undefined && priceFormatter.format(summary.total)}
+            </strong>
           </SummaryCard>
         </>
       )}
