@@ -47,6 +47,30 @@
       "type": "outcome",
       "createdAt": "2022-12-07T21:04:01.638Z",
       "id": 6
+    },
+    {
+      "description": "Ingresso Cinema",
+      "price": 21,
+      "category": "Entretenimento",
+      "type": "outcome",
+      "createdAt": "2022-12-09T17:51:03.700Z",
+      "id": 7
+    },
+    {
+      "description": "Reembolso de Jogo",
+      "price": 45,
+      "category": "Outros",
+      "type": "income",
+      "createdAt": "2022-12-09T18:39:06.444Z",
+      "id": 8
+    },
+    {
+      "description": "teste",
+      "price": 12,
+      "category": "Outros",
+      "type": "outcome",
+      "createdAt": "2022-12-09T18:53:54.301Z",
+      "id": 9
     }
   ]
 }

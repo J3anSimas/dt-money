@@ -1,7 +1,6 @@
 import Header from '../../components/Header/header.component'
 import Loading from '../../components/Loading/loading.component'
 import Summary from '../../components/Summary/summary.component'
-import { useTransactions } from '../../hooks/useTransactions'
 import { dateFormateter, priceFormatter } from '../../utils/formatter'
 import { useQuery } from 'react-query'
 import SearchForm from './components/SearchForm/search-form.component'
@@ -48,10 +47,10 @@ export default function Transactions(): JSX.Element {
           query={query}
           onSubmitQuery={onSubmitQuery}
         />
-        <TransactionsTable>
-          {isFetching ? (
-            <Loading size={48} />
-          ) : (
+        {isFetching ? (
+          <Loading />
+        ) : (
+          <TransactionsTable>
             <tbody>
               {data?.map((transaction) => (
                 <tr key={transaction.id}>
@@ -69,8 +68,8 @@ export default function Transactions(): JSX.Element {
                 </tr>
               ))}
             </tbody>
-          )}
-        </TransactionsTable>
+          </TransactionsTable>
+        )}
       </TransactionsTableContainer>
     </TransactionsContainer>
   )

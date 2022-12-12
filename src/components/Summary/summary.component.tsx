@@ -8,13 +8,18 @@ import { useQuery } from 'react-query'
 import { useEffect, useState } from 'react'
 
 export default function Summary(): JSX.Element {
-  const { data, isFetching } = useQuery(
+  const { data, isFetching, isSuccess } = useQuery(
     'transactions',
     async () => await getTransactionData()
   )
-  const [summary, setSummary] = useState<TSummary>()
+  const [summary, setSummary] = useState<TSummary>({
+    income: 0,
+    outcome: 0,
+    total: 0
+  })
+
   useEffect(() => {
-    if (data != null) setSummary(useSummary(data))
+    setSummary(useSummary(data))
   }, [data])
 
   return (

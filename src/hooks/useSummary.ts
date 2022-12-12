@@ -6,7 +6,7 @@ export type TSummary = {
   total: number
 }
 export function useSummary(data: TTransaction[]): TSummary {
-  const summary = data.reduce(
+  const summary = data?.reduce(
     (acc, transaction) => {
       if (transaction.type === 'income') {
         acc.income += transaction.price
@@ -19,5 +19,6 @@ export function useSummary(data: TTransaction[]): TSummary {
     },
     { income: 0, outcome: 0, total: 0 }
   )
-  return summary
+  if (summary != null) return summary
+  return { income: 0, outcome: 0, total: 0 }
 }
